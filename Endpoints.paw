@@ -73,7 +73,7 @@
         <relationship name="variablesvalues" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z104">
-        <attribute name="value" type="string">[{"data":{"strict":0,"tokenPrefix":"Bearer ","scope":"write read","explicitCallbackURL":1,"token":"GDcCZNEhZdt4GALxrRQ65mPwoH6idr","stateNonce":"[{\\"data\\":{\\"useUppercaseLetters\\":1,\\"length\\":32,\\"useDigits\\":1,\\"useHexDigits\\":0,\\"useASCIISymbols\\":0,\\"useLowercaseLetters\\":1},\\"identifier\\":\\"com.luckymarmot.NonceDynamicValue\\"}]","clientSecret":"123","clientID":"abc"},"identifier":"com.luckymarmot.OAuth2DynamicValue"}]</attribute>
+        <attribute name="value" type="string">[{"data":{"strict":0,"tokenPrefix":"Bearer ","scope":"write read","explicitCallbackURL":1,"token":"RbTUCQ6A3HcOb1ejHD18bL49OMQ4Ag","stateNonce":"[{\\"data\\":{\\"useUppercaseLetters\\":1,\\"length\\":32,\\"useDigits\\":1,\\"useHexDigits\\":0,\\"useASCIISymbols\\":0,\\"useLowercaseLetters\\":1},\\"identifier\\":\\"com.luckymarmot.NonceDynamicValue\\"}]","clientSecret":"123","clientID":"abc"},"identifier":"com.luckymarmot.OAuth2DynamicValue"}]</attribute>
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">Authorization</attribute>
         <attribute name="enabled" type="bool">1</attribute>
