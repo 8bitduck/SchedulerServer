@@ -1,0 +1,60 @@
+# VirtualEnv
+/env/
+
+# Dot-Env (local development environment variables)
+.env
+
+# Python
+*.py[cod]
+
+*.so # C extensions
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# IDE
+.idea/
+*.iml
+
+# Mac
+.DS_Store
+._*
+*~
+*.swp
+
+
+
+### Emacs ###
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+
+.vagrant/
