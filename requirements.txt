@@ -10,3 +10,4 @@ psycopg2==2.6
 python-dateutil==2.4.0
 pytz==2014.10
 django-crispy-forms==1.4.0
+twilio==3.6.15

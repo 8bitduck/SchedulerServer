@@ -29,6 +29,8 @@ cat >> /home/vagrant/.bashrc <<EOF
 export PATH=/usr/local/bin:$PATH
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export DEBUG=True
+export TWILIO_ACCOUNT_SID=AC7089d119fc90cdf546b98867cdb9cbfe
+export TWILIO_AUTH_TOKEN=2503730ee7a56c4fcdad3aabf889f9ca
 source /usr/local/bin/virtualenvwrapper.sh
 workon SMSSchedulerServer
 
