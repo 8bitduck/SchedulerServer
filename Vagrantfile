@@ -27,6 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
   config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.network :forwarded_port, guest: 5432, host: 5432
 
   # Enable provisioning with a shell script.
   config.vm.provision :shell, path: "provisioning/vagrant_install.sh", args: "SMSSchedulerServer"
