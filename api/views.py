@@ -152,10 +152,7 @@ class ListsCollectionView(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-class ListsView(APIView):
-    permission_classes = (OAuthTokenHasResourceOwner,)
-
-    def get(self, request, id, format=None):
+    def post(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -167,7 +164,10 @@ class ListsView(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-    def post(self, request, id, format=None):
+class ListsView(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, id, format=None):
         ev = {
             "id": 200
         }
