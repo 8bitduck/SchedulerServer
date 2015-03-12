@@ -12,10 +12,7 @@ from SMSSchedulerServer.utils import OAuthTokenIsValid, OAuthTokenHasResourceOwn
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 
-
-# JOBS_DATABASE = "postgresql://test_jobs:test_jobs@localhost/test_jobs"
 JOBS_DATABASE = "postgresql://localhost:3000/SMSSchedulerServer_dev"
-
 
 def tick():
     print('Tick!')
