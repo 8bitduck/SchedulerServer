@@ -12,10 +12,7 @@ from SMSSchedulerServer.utils import OAuthTokenIsValid, OAuthTokenHasResourceOwn
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 
-
-# JOBS_DATABASE = "postgresql://test_jobs:test_jobs@localhost/test_jobs"
 JOBS_DATABASE = "postgresql://localhost:3000/SMSSchedulerServer_dev"
-
 
 def tick():
     print('Tick!')
@@ -62,6 +59,192 @@ class ExampleEndpointView(APIView):
             "id": 100,
             "test": "Test Endpoint was successful!",
             "twilio_id": message.sid
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class MessagesCollectionView(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def post(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class MessagesView(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def delete(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def put(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class ListsCollectionView(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def post(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class ListsView(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def put(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def delete(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class UserCollectionView(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def post(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class UserView(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def put(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def delete(self, request, id, format=None):
+        ev = {
+            "id": 200
         }
 
         response = Response(data=[ev])
