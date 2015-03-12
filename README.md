@@ -70,10 +70,65 @@ Testing
 
 
 Model Updates
-------------------------
+-------------
 
 After editing your models.py, run:
 
     ./manage.py schemamigration <app>  --auto
     ./manage.py migrate <app>
 
+REST API ENDPOINTS
+------------------
+
+### /api/message/
+
+##### POST:
+
+##### GET:
+
+##### DELETE:
+
+##### PUT:
+
+---
+
+### /api/lists/
+
+##### GET:
+
+---
+### /api/list/
+
+##### POST:
+
+##### GET:
+
+##### DELETE:
+
+##### PUT:
+
+---
+
+### /api/profile/
+
+##### PUT:
+
+##### GET:
+
+---
+
+### /api/register/
+
+##### POST:
+
+---
+
+### /api/login/
+
+##### POST:
+
+---
+
+### /api/logout/
+
+##### POST:

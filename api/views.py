@@ -70,3 +70,192 @@ class ExampleEndpointView(APIView):
         response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
         response['Vary'] = 'Accept-Encoding'
         return response
+
+class Message(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def post(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def put(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def delete(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class Lists(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class List(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def post(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def put(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def delete(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class Profile(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+    def put(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class Register(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def post(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class Login(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def post(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class Logout(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def post(self, request, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
