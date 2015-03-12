@@ -71,7 +71,7 @@ class ExampleEndpointView(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-class Message(APIView):
+class MessagesCollectionView(APIView):
     permission_classes = (OAuthTokenHasResourceOwner,)
 
     def get(self, request, format=None):
@@ -98,7 +98,10 @@ class Message(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-    def put(self, request, format=None):
+class MessagesView(APIView):
+    permission_classes = (OAuthTokenHasResourceOwner,)
+
+    def get(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -110,7 +113,7 @@ class Message(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-    def delete(self, request, format=None):
+    def delete(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -122,7 +125,19 @@ class Message(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-class Lists(APIView):
+    def put(self, request, id, format=None):
+        ev = {
+            "id": 200
+        }
+
+        response = Response(data=[ev])
+
+        # Cache Control
+        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Vary'] = 'Accept-Encoding'
+        return response
+
+class ListsCollectionView(APIView):
     permission_classes = (OAuthTokenHasResourceOwner,)
 
     def get(self, request, format=None):
@@ -137,10 +152,10 @@ class Lists(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-class List(APIView):
+class ListsView(APIView):
     permission_classes = (OAuthTokenHasResourceOwner,)
 
-    def get(self, request, format=None):
+    def get(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -152,7 +167,7 @@ class List(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-    def post(self, request, format=None):
+    def post(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -164,7 +179,7 @@ class List(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-    def put(self, request, format=None):
+    def put(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -176,7 +191,7 @@ class List(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-    def delete(self, request, format=None):
+    def delete(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -188,10 +203,10 @@ class List(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-class Profile(APIView):
+class UserCollectionView(APIView):
     permission_classes = (OAuthTokenHasResourceOwner,)
 
-    def get(self, request, format=None):
+    def post(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -203,22 +218,10 @@ class Profile(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-    def put(self, request, format=None):
-        ev = {
-            "id": 200
-        }
-
-        response = Response(data=[ev])
-
-        # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
-        response['Vary'] = 'Accept-Encoding'
-        return response
-
-class Register(APIView):
+class UserView(APIView):
     permission_classes = (OAuthTokenHasResourceOwner,)
 
-    def post(self, request, format=None):
+    def get(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -230,10 +233,7 @@ class Register(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-class Login(APIView):
-    permission_classes = (OAuthTokenHasResourceOwner,)
-
-    def post(self, request, format=None):
+    def put(self, request, id, format=None):
         ev = {
             "id": 200
         }
@@ -245,10 +245,7 @@ class Login(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-class Logout(APIView):
-    permission_classes = (OAuthTokenHasResourceOwner,)
-
-    def post(self, request, format=None):
+    def delete(self, request, id, format=None):
         ev = {
             "id": 200
         }

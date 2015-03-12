@@ -80,55 +80,80 @@ After editing your models.py, run:
 REST API ENDPOINTS
 ------------------
 
-### /api/message/
+### /api/messages/
 
 ##### POST:
+Create a new message
+
+Payload:
+
 
 ##### GET:
+Get all messages for the logged in user
+
+---
+
+### /api/messages/<id>
+
+##### GET:
+Get the message by ID
 
 ##### DELETE:
+Delete the message by ID
 
 ##### PUT:
+Update the message by ID
 
 ---
 
 ### /api/lists/
 
 ##### GET:
-
----
-### /api/list/
+Get all the lists for the logged in user
 
 ##### POST:
+Create a new list for the logged in user
+
+Payload:
+
+---
+### /api/lists/<id>
 
 ##### GET:
+Get the list by ID
 
 ##### DELETE:
+Delete the list by ID
 
 ##### PUT:
+Update the list by ID
+
+---
+### /api/users/
+
+##### POST: 
+Register a user
+
+Payload:
+
+* email
+* password
+* facebook auth token
 
 ---
 
-### /api/profile/
+### /api/users/<id>/
+
+id can equal 'me' to reference the requesting user.
 
 ##### PUT:
+Update a specific users details
 
 ##### GET:
+Get the user details
+
+##### DELETE: 
+Logout the user
 
 ---
 
-### /api/register/
-
-##### POST:
-
----
-
-### /api/login/
-
-##### POST:
-
----
-
-### /api/logout/
-
-##### POST:
