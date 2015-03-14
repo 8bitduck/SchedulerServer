@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>A17E55F7-4D15-4EA0-B078-432F89145D06</UUID>
-        <nextObjectID>179</nextObjectID>
+        <nextObjectID>181</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -153,7 +153,7 @@
         <attribute name="uuid" type="string">B870C5B8-C68A-48DE-AC96-FA518EBD78D4</attribute>
         <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">User</attribute>
-        <relationship name="environments" type="0/0" destination="LMENVIRONMENT" idrefs="z113"></relationship>
+        <relationship name="environments" type="0/0" destination="LMENVIRONMENT" idrefs="z180 z113"></relationship>
         <relationship name="variables" type="0/0" destination="LMENVIRONMENTVARIABLE" idrefs="z114"></relationship>
     </object>
     <object type="LMENVIRONMENTVARIABLEVALUE" id="z112">
@@ -173,7 +173,7 @@
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">Bearer</attribute>
         <relationship name="domain" type="0/1" destination="LMENVIRONMENTDOMAIN" idrefs="z111"></relationship>
-        <relationship name="values" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z115"></relationship>
+        <relationship name="values" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z115 z181"></relationship>
     </object>
     <object type="LMENVIRONMENTVARIABLEVALUE" id="z115">
         <attribute name="value" type="string">qqSGkTAR2qi7hlZM6XW6mRrRGi2npX</attribute>
@@ -236,7 +236,7 @@
     <object type="LMENVIRONMENT" id="z125">
         <attribute name="uuid" type="string">7D76A900-9F0B-473E-B759-FD7DA753C476</attribute>
         <attribute name="order" type="int64">2</attribute>
-        <attribute name="name" type="string">Locolhost</attribute>
+        <attribute name="name" type="string">Localhost</attribute>
         <relationship name="domain" type="0/1" destination="LMENVIRONMENTDOMAIN" idrefs="z106"></relationship>
         <relationship name="variablesvalues" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z126 z131 z133"></relationship>
     </object>
@@ -828,5 +828,17 @@
         <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z167"></relationship>
+    </object>
+    <object type="LMENVIRONMENT" id="z180">
+        <attribute name="uuid" type="string">E82FCF07-91C4-4570-BF95-49540038CFFC</attribute>
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="name" type="string">Localhost</attribute>
+        <relationship name="domain" type="0/1" destination="LMENVIRONMENTDOMAIN" idrefs="z111"></relationship>
+        <relationship name="variablesvalues" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z181"></relationship>
+    </object>
+    <object type="LMENVIRONMENTVARIABLEVALUE" id="z181">
+        <attribute name="value" type="string">ne4qvhv3PImiHcRouS31P2moDUAO1j</attribute>
+        <relationship name="environment" type="1/1" destination="LMENVIRONMENT" idrefs="z180"></relationship>
+        <relationship name="variable" type="1/1" destination="LMENVIRONMENTVARIABLE" idrefs="z114"></relationship>
     </object>
 </database>

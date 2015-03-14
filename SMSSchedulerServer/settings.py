@@ -111,6 +111,13 @@ BUGSNAG = {
     "notify_release_stages": ["production", "test"],
 }
 
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read_profile': 'Access your user profile.',
+        'update_profile': 'Update your user profile.',
+    },
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 86400,
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
