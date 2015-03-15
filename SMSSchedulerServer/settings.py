@@ -21,6 +21,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', '9b9%5fwgtj2vaabqlkkk+n4h93-&@d3e5&6+k#c(&4wkjjn9m*')
 
+EMAIL_SALT = env("EMAIL_SALT", 'O3uZZB9Jtre30N4hqQlNOlQQag9t/gK6o66myeMfpKY=')
+EMAIL_KEY = env("EMAIL_KEY", 'F9zP2mHyuSK0G1Tz8MXsKALrgqu4g6qL65XOdWKJvtM=')
+
+AUTH_USER_MODEL = 'api.User'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', False)
 TEMPLATE_DEBUG = DEBUG
@@ -58,6 +63,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'oauth2_provider',
     'crispy_forms',
+    'api',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -115,8 +121,7 @@ OAUTH2_PROVIDER = {
     'SCOPES': {
         'read_profile': 'Access your user profile.',
         'update_profile': 'Update your user profile.',
-    },
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 86400,
+    }
 }
 
 # Static files (CSS, JavaScript, Images)

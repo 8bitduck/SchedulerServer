@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.contrib.auth.models import User
 
 from twilio.rest import TwilioRestClient
+from SMSSchedulerServer.validators import is_password_valid
+from api.serializers import *
 
 import os
 
@@ -149,7 +152,7 @@ class ListsCollectionView(APIView):
         response['Vary'] = 'Accept-Encoding'
         return response
 
-    def post(self, request, id, format=None):
+    def post(self, request, format=None):
         ev = {
             "id": 200
         }
@@ -203,17 +206,45 @@ class ListsView(APIView):
 class UserCollectionView(APIView):
     permission_classes = (OAuthTokenHasResourceOwner,)
 
-    def post(self, request, id, format=None):
-        ev = {
-            "id": 200
-        }
+    def post(self, request, format=None):
 
-        response = Response(data=[ev])
+        user = None
+        try:
+            user = User.objects.get_by_natural_key(request.DATA['email'])
+        except User.DoesNotExist as e:
+            pass
 
-        # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
-        response['Vary'] = 'Accept-Encoding'
-        return response
+        if user:
+            return Response({
+                "error": "duplicate_user",
+                "error_description": "User already exists"
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+        if 'password' in request.DATA:
+            if not is_password_valid(request.DATA['password']):
+                return Response({
+                    "error": "validation_failed",
+                    "error_description": "User resource is not valid.",
+                    "field_errors": { 'password': ['Your password must be at least 6 characters.']}
+                }, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({
+                    "error": "validation_failed",
+                    "error_description": "User resource is not valid.",
+                    "field_errors": { 'password': ['Password is required']}
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = UserSerializer(data=request.DATA)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data)
+
+        return Response({
+                "error": "validation_failed",
+                "error_description": "User resource is not valid.",
+                "field_errors": serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST) 
 
 class UserView(APIView):
     permission_classes = (OAuthTokenHasResourceOwner,)
