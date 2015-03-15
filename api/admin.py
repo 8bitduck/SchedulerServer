@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 
 from api.models import User
 from api.forms import CustomUserChangeForm, CustomUserCreationForm
+from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 
 class CustomUserAdmin(UserAdmin):
@@ -28,3 +29,4 @@ class CustomUserAdmin(UserAdmin):
 	ordering = ('email',)
 
 admin.site.register(User, CustomUserAdmin)
+admin.site.unregister(Group)

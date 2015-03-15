@@ -39,11 +39,11 @@ class UserManager(BaseUserManager):
 			email=''
 		return self.get(email=self.normalize_email(email))
 
-	def normalize_email(self, email):
-		salt_bytes = base64.b64decode(settings.EMAIL_SALT)
-		hash_bytes = pbkdf2(email.lower().strip(), salt_bytes, 1000, digest=hashlib.sha1)
-		email = base64.b64encode(hash_bytes).decode('ascii').strip()
-		return email
+	# def normalize_email(self, email):
+	# 	salt_bytes = base64.b64decode(settings.EMAIL_SALT)
+	# 	hash_bytes = pbkdf2(email.lower().strip(), salt_bytes, 1000, digest=hashlib.sha1)
+	# 	email = base64.b64encode(hash_bytes).decode('ascii').strip()
+	# 	return email
 
 
 class User(AbstractBaseUser, PermissionsMixin):
