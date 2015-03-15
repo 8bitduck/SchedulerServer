@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.conf import settings
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -6,7 +8,6 @@ from accounts.models import User
 
 from twilio.rest import TwilioRestClient
 
-from accounts.serializers import *
 from accounts.serializers import *
 
 import os
@@ -55,7 +56,7 @@ class ExampleEndpointView(APIView):
     """
     def get(self, request, format=None):
 
-        client = TwilioRestClient(os.environ["TWILIO_ACCOUNT_SID"], os.environ["TWILIO_AUTH_TOKEN"])
+        client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
         message = client.messages.create(   body="Test Message", 
                                             to="+15129343410",
                                             from_="+15125808070")
