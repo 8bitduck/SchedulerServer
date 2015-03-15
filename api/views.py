@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.contrib.auth.models import User
+
+from api.models import User
 
 from twilio.rest import TwilioRestClient
 from SMSSchedulerServer.validators import is_password_valid
+
 from api.serializers import *
+from accounts.serializers import *
 
 import os
 
