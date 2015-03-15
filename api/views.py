@@ -42,7 +42,7 @@ class ScheduleExample(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -69,7 +69,7 @@ class ExampleEndpointView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -84,7 +84,7 @@ class MessagesCollectionView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -96,7 +96,7 @@ class MessagesCollectionView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -111,7 +111,7 @@ class MessagesView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -123,7 +123,7 @@ class MessagesView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -135,7 +135,7 @@ class MessagesView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -150,7 +150,7 @@ class ListsCollectionView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -162,7 +162,7 @@ class ListsCollectionView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -177,7 +177,7 @@ class ListsView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -189,7 +189,7 @@ class ListsView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -201,11 +201,12 @@ class ListsView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
 class UserCollectionView(APIView):
+    permission_classes = (OAuthTokenIsValid,)
 
     def post(self, request, format=None):
 
@@ -213,13 +214,21 @@ class UserCollectionView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response(data=serializer.data)
+            response = Response(data=serializer.data)
 
-        return Response({
+            response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
+            response['Vary'] = 'Accept-Encoding'
+            return response
+
+        response = Response({
                 "error": "validation_failed",
                 "error_description": "User resource is not valid.",
                 "field_errors": serializer.errors
             }, status=status.HTTP_400_BAD_REQUEST) 
+
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
+        response['Vary'] = 'Accept-Encoding'
+        return response        
 
 class UserView(APIView):
     permission_classes = (OAuthTokenHasResourceOwner,)
@@ -232,7 +241,7 @@ class UserView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -244,7 +253,7 @@ class UserView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -256,6 +265,6 @@ class UserView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
