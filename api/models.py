@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
-from SMSSchedulerServer.utils import AESCipher
 from django.utils.crypto import pbkdf2
 from django.conf import settings
 import base64
@@ -18,7 +17,6 @@ class UserManager(BaseUserManager):
 
 		user = self.model(
 			email = self.normalize_email(email),
-			encrypted_email = AESCipher(settings.EMAIL_KEY).encrypt(email.strip()),
 			is_staff=is_staff,
 			is_active=True,
 			is_superuser=is_superuser,
@@ -49,8 +47,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-	email = models.CharField(verbose_name='email address', max_length=64, unique=True, db_index=True)
-	encrypted_email = models.TextField()
+	email = models.EmailField(_('email address'), max_length=64, unique=True)
 	first_name = models.CharField(_('first name'), max_length=30, blank=True)
 	last_name = models.CharField(_('last name'), max_length=30, blank=True)
 	date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
@@ -70,23 +67,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 		return self.email
 
 	def get_full_name(self):
-		return self.email
-
-	@property
-	def email(self):
-		if not self.encrypted_email:
-			return self.encrypted_email # Null or empty string
-
-		email_bytes = AESCipher(settings.EMAIL_KEY).decrypt(self.encrypted_email)
-		return email_bytes.decode('utf-8')
-
-	@email.setter
-	def email(self, email):
-		if not email:
-			self.email = None
-			self.encrypted_email = None
-			return
-		self.email = User.objects.normalize_email(email)
-		self.encrypted_email = AESCipher(settings.EMAIL_KEY).encrypt(email.strip())
-
-	
+		return self.email	
