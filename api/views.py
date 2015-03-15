@@ -207,35 +207,8 @@ class ListsView(APIView):
         return response
 
 class UserCollectionView(APIView):
-    permission_classes = (OAuthTokenHasResourceOwner,)
 
     def post(self, request, format=None):
-
-        user = None
-        try:
-            user = User.objects.get_by_natural_key(request.DATA['email'])
-        except User.DoesNotExist as e:
-            pass
-
-        if user:
-            return Response({
-                "error": "duplicate_user",
-                "error_description": "User already exists"
-                }, status=status.HTTP_400_BAD_REQUEST)
-
-        if 'password' in request.DATA:
-            if not is_password_valid(request.DATA['password']):
-                return Response({
-                    "error": "validation_failed",
-                    "error_description": "User resource is not valid.",
-                    "field_errors": { 'password': ['Your password must be at least 6 characters.']}
-                }, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({
-                    "error": "validation_failed",
-                    "error_description": "User resource is not valid.",
-                    "field_errors": { 'password': ['Password is required']}
-                }, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = UserSerializer(data=request.DATA)
 
