@@ -1,8 +1,14 @@
 from django.shortcuts import render
+from django.conf import settings
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from accounts.models import User
+
 from twilio.rest import TwilioRestClient
+
+from accounts.serializers import *
 
 import os
 
@@ -37,7 +43,7 @@ class ScheduleExample(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -50,7 +56,7 @@ class ExampleEndpointView(APIView):
     """
     def get(self, request, format=None):
 
-        client = TwilioRestClient(os.environ["TWILIO_ACCOUNT_SID"], os.environ["TWILIO_AUTH_TOKEN"])
+        client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
         message = client.messages.create(   body="Test Message", 
                                             to="+15129343410",
                                             from_="+15125808070")
@@ -64,7 +70,7 @@ class ExampleEndpointView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -79,7 +85,7 @@ class MessagesCollectionView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -91,7 +97,7 @@ class MessagesCollectionView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -106,7 +112,7 @@ class MessagesView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -118,7 +124,7 @@ class MessagesView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -130,7 +136,7 @@ class MessagesView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -145,11 +151,11 @@ class ListsCollectionView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
-    def post(self, request, id, format=None):
+    def post(self, request, format=None):
         ev = {
             "id": 200
         }
@@ -157,7 +163,7 @@ class ListsCollectionView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -172,7 +178,7 @@ class ListsView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -184,7 +190,7 @@ class ListsView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -196,24 +202,34 @@ class ListsView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
 class UserCollectionView(APIView):
-    permission_classes = (OAuthTokenHasResourceOwner,)
+    permission_classes = (OAuthTokenIsValid,)
 
-    def post(self, request, id, format=None):
-        ev = {
-            "id": 200
-        }
+    def post(self, request, format=None):
 
-        response = Response(data=[ev])
+        serializer = UserSerializer(data=request.DATA)
 
-        # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        if serializer.is_valid():
+            serializer.save()
+            response = Response(data=serializer.data)
+
+            response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
+            response['Vary'] = 'Accept-Encoding'
+            return response
+
+        response = Response({
+                "error": "validation_failed",
+                "error_description": "User resource is not valid.",
+                "field_errors": serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST) 
+
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
-        return response
+        return response        
 
 class UserView(APIView):
     permission_classes = (OAuthTokenHasResourceOwner,)
@@ -226,7 +242,7 @@ class UserView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -238,7 +254,7 @@ class UserView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
 
@@ -250,6 +266,6 @@ class UserView(APIView):
         response = Response(data=[ev])
 
         # Cache Control
-        response['Cache-Control'] = "no-transform,private,s-maxage=3600,max-age=3600"
+        response['Cache-Control'] = "no-transform,private,max-age=0,no-cache"
         response['Vary'] = 'Accept-Encoding'
         return response
