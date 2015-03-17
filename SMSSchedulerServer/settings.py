@@ -21,6 +21,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', '9b9%5fwgtj2vaabqlkkk+n4h93-&@d3e5&6+k#c(&4wkjjn9m*')
 
+EMAIL_SALT = env("EMAIL_SALT", 'O3uZZB9Jtre30N4hqQlNOlQQag9t/gK6o66myeMfpKY=')
+EMAIL_KEY = env("EMAIL_KEY", 'F9zP2mHyuSK0G1Tz8MXsKALrgqu4g6qL65XOdWKJvtM=')
+
+AUTH_USER_MODEL = 'accounts.User'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', False)
 TEMPLATE_DEBUG = DEBUG
@@ -58,6 +63,9 @@ INSTALLED_APPS = (
     'django_extensions',
     'oauth2_provider',
     'crispy_forms',
+
+    'accounts',
+    'api',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -89,15 +97,10 @@ DATABASES = {
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 # Bug tracking
@@ -111,6 +114,12 @@ BUGSNAG = {
     "notify_release_stages": ["production", "test"],
 }
 
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read_profile': 'Access your user profile.',
+        'update_profile': 'Update your user profile.',
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
@@ -134,3 +143,8 @@ REST_FRAMEWORK = {
         'oauth2_provider.ext.rest_framework.OAuth2Authentication',
     )
 }
+
+# Twillo
+TWILIO_ACCOUNT_SID = os.environ["TWILIO_ACCOUNT_SID"]
+TWILIO_AUTH_TOKEN = os.environ["TWILIO_AUTH_TOKEN"]
+
