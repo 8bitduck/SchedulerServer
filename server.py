@@ -65,31 +65,34 @@ def create_message():
 
     # Validate the request
     secret_key = request.json.get('SECRET_KEY')
-    if secret_key == "":
+    if secret_key is None:
         response["response"] = "error"
         response["error"] = "No SECRET_KEY supplied."
-        print(response["error"])
+        print("Not Scheduling! - " + response["error"])
         return response
 
     if secret_key != SECRET_KEY:
         response["response"] = "error"
         response["error"] = "Invalid Key"
-        print(response["error"])
+        print("Not Scheduling! - " + response["error"])
         return response
 
     message_id = request.json.get('message_id')
-    if message_id == "":
+    if message_id is None:
         response["response"] = "error"
         response["error"] = "No message_id supplied."
-        print(response["error"])
+        print("Not Scheduling! - " + response["error"])
         return response
 
     start_timestamp = request.json.get('start_timestamp')
-    if start_timestamp == "":
+    if start_timestamp is None:
         response["response"] = "error"
         response["error"] = "No start_timestamp supplied."
-        print(response["error"])
+        print("Not Scheduling! - " + response["error"])
         return response
+
+    # @TODO - validate the start_time and make sure it is after
+    # the current time!
 
     # Request Validated - Create the schedule
     scheduler = BackgroundScheduler()
