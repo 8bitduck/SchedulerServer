@@ -12,8 +12,14 @@ DB_TABLE = "apscheduler_jobs"
 
 SECRET_KEY = "h*|.yUKf37#JBhPCvNI7NAlWLa@:Fqz-GUHK%4H==mU B0+vyWyo*#h{Rgj6nSsb"
 
-PARSE_APP_ID = "3TYYJK9VqOPj13cYevwxBLtFBOokremx2gM4OBc3"
-PARSE_REST_API_KEY = "LC9PBUbZJLVBFgTiaEIA2mcVrNK7YeDbui3p7Pwr"
+# SMSScheduler
+# PARSE_APP_ID = "3TYYJK9VqOPj13cYevwxBLtFBOokremx2gM4OBc3"
+# PARSE_REST_API_KEY = "LC9PBUbZJLVBFgTiaEIA2mcVrNK7YeDbui3p7Pwr"
+
+# Scheduler
+PARSE_APP_ID = "KGhjsUpfVVUfhTFgNG99IhuolVKEBGG51WpfybQJ"
+PARSE_REST_API_KEY = "v85f76lacMfbYcRdzHYrSIQcaOkzc605XE0YgDU4"
+
 PARSE_API = "https://api.parse.com/1/functions/"
 
 app = Bottle()
@@ -38,12 +44,12 @@ def trigger_parse_cloud_function(endpoint, payload):
 # send a message to the Parse Cloud.
 
 
-def trigger_message(**kwargs):
-    print('Time to Send Message! - ' + kwargs['message_id'])
+def trigger_schedule(**kwargs):
+    print('Time to Send Schedule! - ' + kwargs['schedule_id'])
     payload = {
-        'message_id': kwargs['message_id']
+        'schedule_id': kwargs['schedule_id']
     }
-    trigger_parse_cloud_function('sendSms', payload)
+    trigger_parse_cloud_function('triggerWebhook', payload)
 
 # The endpoint on the server to call with a POST only.
 # Must supply the SECRET_KEY to the JSON body to interact
@@ -58,8 +64,8 @@ def trigger_message(**kwargs):
 # If it is successful it will return the job_id of the job.
 
 
-@app.route('/message', method='POST')
-def create_message():
+@app.route('/schedule', method='POST')
+def create_schedule():
     print("Create Schedule: " + request.json.get('start_timestamp'))
     response = dict()
 
@@ -77,10 +83,10 @@ def create_message():
         print("Not Scheduling! - " + response["error"])
         return response
 
-    message_id = request.json.get('message_id')
-    if message_id is None:
+    schedule_id = request.json.get('schedule_id')
+    if schedule_id is None:
         response["response"] = "error"
-        response["error"] = "No message_id supplied."
+        response["error"] = "No schedule_id supplied."
         print("Not Scheduling! - " + response["error"])
         return response
 
@@ -101,7 +107,7 @@ def create_message():
                            'default')
 
     payload = {
-        'message_id': message_id
+        'schedule_id': schedule_id
     }
 
     job = scheduler.add_job(trigger_message,
