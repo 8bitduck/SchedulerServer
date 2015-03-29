@@ -7,7 +7,8 @@ import json
 import dateutil.parser
 
 JOBS_DATABASE = "postgresql://ubuntu:ubuntu@localhost:5432/SMSSchedulerServer_dev"
-# JOBS_DATABASE = "postgresql://vagrant:vagrant@localhost:5432/SMSSchedulerServer_dev"
+# JOBS_DATABASE =
+# "postgresql://vagrant:vagrant@localhost:5432/SMSSchedulerServer_dev"
 DB_TABLE = "apscheduler_jobs"
 
 SECRET_KEY = "h*|.yUKf37#JBhPCvNI7NAlWLa@:Fqz-GUHK%4H==mU B0+vyWyo*#h{Rgj6nSsb"
@@ -39,6 +40,7 @@ def trigger_parse_cloud_function(endpoint, payload):
     url = PARSE_API + endpoint
     r = requests.post(url, data=json.dumps(payload), headers=headers)
     print("Parse Response: " + r.text)
+    return r
 
 # Called automatically by the scheduler when it is ready to
 # send a message to the Parse Cloud.
@@ -64,8 +66,8 @@ def trigger_schedule(**kwargs):
 # If it is successful it will return the job_id of the job.
 
 
-@app.route('/schedule', method='POST')
-def create_schedule():
+@app.route('/parseschedule', method='POST')
+def parse_create_schedule():
     print("Create Schedule: " + request.json.get('start_timestamp'))
     response = dict()
 
@@ -110,7 +112,7 @@ def create_schedule():
         'schedule_id': schedule_id
     }
 
-    job = scheduler.add_job(trigger_message,
+    job = scheduler.add_job(trigger_schedule,
                             'date',
                             run_date=dateutil.parser.parse(start_timestamp),
                             kwargs=payload)
@@ -119,6 +121,47 @@ def create_schedule():
     response["response"] = "success"
     response["job_id"] = job.id
     print("Job Scheduled - " + job.id)
+    return response
+
+# The endpoint that users can call to schedule an event for a trigger.
+# This will validate the request and send it to parse for user validation
+
+
+@app.route('/schedule', method='POST')
+def create_schedule():
+    print("Validating Account...")
+    response = dict()
+
+    # Validate the request
+
+    # Send to Parse to validate
+    payload = {
+        'API_KEY': request.json.get('API_KEY'),
+        'start_timestamp': request.json.get('start_timestamp'),
+        'end_timestamp': request.json.get('end_timestamp'),
+        'webhook': request.json.get('webhook'),
+        'blob': request.json.get('blob')
+    }
+    r = trigger_parse_cloud_function('validateSchedule', payload)
+    if 'error' not in r.json():
+        response["response"] = "success"
+    else:
+        response["response"] = "error"
+
+    print("Response from Parse: " + r.text)
+    return response
+
+# A fake Test Webhook that gets called to verify that the scheduler
+# works
+
+
+@app.route('/testWebhook', method='POST')
+def test_webhook():
+    print("/testWebhook")
+    print("Blob Data - " + request.json)
+    response = dict()
+    response["response"] = "success"
+    response["blob"] = request.json
     return response
 
 run(app, server='gunicorn', host='0.0.0.0', port=8080)
